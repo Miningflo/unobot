@@ -30,19 +30,20 @@ class Stack:
     def draw(self, n=1):
         draws = []
         for i in range(n):
-            if self.stack is None:
+            if not self.stack:
                 self.__reshuffle()
             draws.append(self.stack.pop(0))
         return draws
 
     def __reshuffle(self):
+        print("reshuffle")
         pile = self.pile.pop()
         for i, card in enumerate(self.pile):
             if card.value >= 13:
                 card.colour = "black"
                 self.pile[i] = card
         random.shuffle(self.pile)
-        self.stack = self.pile
+        self.stack = self.pile.copy()
         self.pile = [pile]
 
     def play(self, card):
